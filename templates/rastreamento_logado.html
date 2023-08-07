@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Display</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        .occurrences-list li:not(:last-child) {
+            border-bottom: 1px solid #E5E7EB;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center p-4">
+        <label for="notaNumber" class="block text-sm font-medium text-gray-700">Digite o número da nota:</label>
+        <input type="text" id="notaNumber" class="mt-1 p-2 border border-gray-300 rounded-md" placeholder="Número da nota">
+        <button id="filterButton" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Filtrar</button>
+    </div>
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Remetente
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Destinatário
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nota
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        CNPJ
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Ocorrência
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data_list %}
+                <tr class="nota-row bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ data.remetente }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ data.destinatario }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ data.nota }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ data.CNPJ }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <button class="dropdown-btn focus:outline-none">Mostrar Ocorrências</button>
+                        <ul class="occurrences-list hidden">
+                            {% for ocorrencia in data.ocorrencias %}
+                            <li>
+                                Data/Hora: {{ ocorrencia.data_hora }}<br>
+                                Cidade: {{ ocorrencia.cidade }}<br>
+                                Ocorrência: {{ ocorrencia.ocorrencia }}<br>
+                                Descrição: {{ ocorrencia.descricao }}<br>
+                                Tipo: {{ ocorrencia.tipo }}<br>
+                                Data/Hora Efetiva: {{ ocorrencia.data_hora_efetiva }}<br>
+                                Nome Recebedor: {{ ocorrencia.nome_recebedor }}<br>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#filterButton").click(function () {
+                const notaNumber = $("#notaNumber").val();
+                $(".nota-row").hide();
+                $(`.nota-row:contains('${notaNumber}')`).show();
+            });
+
+            $(".dropdown-btn").click(function () {
+                $(this).next(".occurrences-list").toggleClass("hidden");
+            });
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

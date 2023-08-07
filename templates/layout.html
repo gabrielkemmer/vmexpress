@@ -1,0 +1,37 @@
+<head>
+  <!-- Include the Tailwind CSS stylesheet -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header flex justify-between items-center bg-gray-200 p-4">
+    <div class="logo">
+      <img src="/static/logo.png" alt="Logo" class="custom-logo-size">
+    </div>
+    <nav class="menu">
+      <ul class="flex space-x-4">
+        <li><a href="/" class="text-black">Home</a></li>
+        <li><a href="/rastreamento_logado" class="text-black">Rastreamento</a></li>
+        <li><a href="/logout" class="text-black">Logout</a></li>
+      </ul>
+    </nav>
+      <div class="contact">
+        <a href="#" class="text-black">Contato</a>
+      </div>
+    </div>
+  </header>
+</body>
+
+<style>
+  .custom-logo-size {
+    width: 11rem;
+  }
+
+  .header {
+    border-bottom: 1px solid #10101024; /* Replace #000 with the desired border color */
+  }
+</style>
+
+{% block content %}
+
+{% endblock %}

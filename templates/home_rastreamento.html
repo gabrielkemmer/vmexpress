@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<body class="bg-gray-100">
+  <div class="container mx-auto flex justify-center items-center mt-20">
+    <div class="w-1/2">
+      <h1 class="text-3xl font-bold mb-4 text-center">Preencha as informações abaixo</h1>
+
+      <form action="/" method="POST">
+        <div class="flex items-center mb-4 mt-16">
+          <span class="text-gray-700 mr-2">CNPJ:</span>
+          <input type="text" name="cnpj" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="Coloque o CNPJ">
+        </div>
+
+        <div class="flex items-center mb-4 mt-16">
+          <span class="text-gray-700 mr-2">Número da nota fiscal:</span>
+          <input type="text" name="nota_fiscal" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="Coloque o número da nota fiscal">
+        </div>
+
+        <div class="flex justify-center">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-8 ">Rastrear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+{% endblock %}

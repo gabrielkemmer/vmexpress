@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rastreamento Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="full-screen flex">
+        <div class="w-1/2 bg-gray-200 flex flex-col items-center justify-center">
+            <a href="{{ url_for('rastreamento_logado')}}">  <!-- Pass the cnpj to the URL -->
+                <div class="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.414 14l4.95-4.95a4.5 4.5 0 10-.708-.708L7.707 13.293a2.5 2.5 0 11-.708.708L11.586 9H4V7h7.586L6.293 3.707a2.5 2.5 0 11.708-.708L13.657 7.95a4.5 4.5 0 10-.708.708L8.414 14z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </a>
+            <a href="{{ url_for('rastreamento_logado', cnpj=cnpj) }}" class="text-3xl font-bold my-4 text-center">Rastreamento</a>  <!-- Pass the cnpj to the URL -->
+        </div>
+        <div class="w-1/2">
+            <img src="/static/home_2.jpg" alt="Image" class="object-cover w-full h-full">
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    .full-screen {
+      width: 100vw;
+      height: 100vh;
+    }
+  
+    .half-width {
+      width: 50%;
+    }
+  </style>
+  
+
+{% endblock %}
