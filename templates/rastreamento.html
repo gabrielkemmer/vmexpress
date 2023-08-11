@@ -15,7 +15,8 @@
     <h1 class="text-2xl font-bold my-10">Rastreamento - Mais antigo para o mais recente</h1>
     {% for index in range(data_hora|length) %}
       <div class="bg-gray-200 border border-gray-300 rounded p-4 mb-4">
-        <p class="font-bold">Data Hora: {{ data_hora[index] }}</p>
+        <p class="font-bold">Data: {{ data3[index] }}</p>
+        <p class="font-bold">Hora: {{ hora2[index] }}</p>
         <p class="font-bold">Cidade: {{ cidade[index] }}</p>
         <p class="font-bold">Ocorrencia: {{ ocorrencia[index] }}</p>
         <p class="font-bold">Descrição: {{ descricao[index] }}</p>

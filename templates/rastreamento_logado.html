@@ -10,6 +10,9 @@
         .occurrences-list li:not(:last-child) {
             border-bottom: 1px solid #E5E7EB;
         }
+        .pdf-link {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +40,9 @@
                     <th scope="col" class="px-6 py-3">
                         Ocorrência
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        PDF
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -59,17 +65,25 @@
                         <ul class="occurrences-list hidden">
                             {% for ocorrencia in data.ocorrencias %}
                             <li>
-                                Data/Hora: {{ ocorrencia.data_hora }}<br>
-                                Cidade: {{ ocorrencia.cidade }}<br>
+                                Data: {{ ocorrencia.data }}<br>
+                                Hora: {{ ocorrencia.hora }}<br>
+                                <!--Cidade: {{ ocorrencia.cidade }}<br>-->
                                 Ocorrência: {{ ocorrencia.ocorrencia }}<br>
                                 Descrição: {{ ocorrencia.descricao }}<br>
-                                Tipo: {{ ocorrencia.tipo }}<br>
-                                Data/Hora Efetiva: {{ ocorrencia.data_hora_efetiva }}<br>
+                                <!--Tipo: {{ ocorrencia.tipo }}<br>-->
+                                <!--Data/Hora Efetiva: {{ ocorrencia.data_hora_efetiva }}<br>-->
                                 Nome Recebedor: {{ ocorrencia.nome_recebedor }}<br>
                             </li>
                             {% endfor %}
                         </ul>
                     </td>
+                    <td class="px-6 py-4">
+                        <a href="{{ data.Link }}" class="pdf-link" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </td>                    
                 </tr>
                 {% endfor %}
             </tbody>

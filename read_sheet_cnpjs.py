@@ -10,7 +10,6 @@ def update_ocurrencies():
     db = client['guilherme']
     consults_collection = db['consultas']
 
-
     actual_directory = os.getcwd()
     path = os.path.join(actual_directory, 'cnpjs/')
     cnpj_csv = path + 'cnpjs.xlsx'  # Specify the path to your PDF file
@@ -19,6 +18,10 @@ def update_ocurrencies():
 
     cnpjs = []
     notas = []
+    links = []
+
+    for item in df['Link']:
+        links.append(item)
 
     for item in df["CNPJ REMETENTE"]:
         item = item.translate({ord('.'): None})
@@ -42,7 +45,8 @@ def update_ocurrencies():
         tracking_info = response.json()
         tracking_infos.append(tracking_info)
 
-        for tracking_info in tracking_infos:
+        
+        for tracking_info, link in zip(tracking_infos, links):
             remetente = tracking_info['header']['remetente']
             destinatario = tracking_info['header']['destinatario']
             tracking = tracking_info['tracking']
@@ -51,12 +55,31 @@ def update_ocurrencies():
                 'remetente': remetente,
                 'destinatario': destinatario,
                 'CNPJ': cnpj,
+                'Link': link,
                 'ocorrencias': []
             }
 
+            data_hora = []
+            hora2 = []
+            data3 = []
+            data2 = []
+            for item in tracking:
+                    data_hora.append(item['data_hora'])
+
+            for item in data_hora:
+                item2 = re.split('T', item)
+                data2.append(item2)
+        
+            for sublist in data2:
+                item1, item2 = sublist
+                hora2.append(item1)  # Append to hora2 list
+                data3.append(item2)  # Append to data3 list
+
+            i = 0
             for item in tracking:
                 occurrence = {
-                    'data_hora': item['data_hora'],
+                    'data': data3[i],
+                    'hora': hora2[i],
                     'cidade': item['cidade'],
                     'ocorrencia': item['ocorrencia'],
                     'descricao': item['descricao'],
@@ -64,6 +87,7 @@ def update_ocurrencies():
                     'data_hora_efetiva': item['data_hora_efetiva'],
                     'nome_recebedor': item['nome_recebedor']
                 }
+                i += 1
                 occurrence_data['ocorrencias'].append(occurrence)
 
             check_nota = consults_collection.find_one({'nota': nota})
@@ -84,3 +108,5 @@ schedule.every().day.at("01:00").do(update_ocurrencies)
 while True:
     schedule.run_pending()
     time.sleep(1)
+
+ 
